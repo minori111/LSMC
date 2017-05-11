@@ -1,0 +1,162 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage[margin=2cm]{geometry}
+%\usepackage{thmbox}
+\usepackage{graphicx}
+\usepackage[dvipsnames,usenames]{color}
+\usepackage{url}
+\usepackage{comment}
+\usepackage{amsmath, amsthm, amssymb,enumerate}
+
+%\usepackage{enumerate}
+%\usepackage{titlesec}
+%\usepackage{Rvector}
+%\usepackage{mathabx}
+\newcommand{\qrq}{\quad\Rightarrow\quad}
+\newcommand{\qarq}{\quad&\Rightarrow\quad}
+\newcommand{\alp}{\alpha}
+\newcommand{\claim}{{\underline{\it Claim:}}~~}
+\newcommand{\dbR}{\mathbb{R}}
+\newcommand{\ndimr}{\mathbb{R}^n}
+\newcommand{\vare}{\varepsilon}
+\newcommand{\since}{\because\;}
+\newcommand{\hence}{\therefore\;}
+\newcommand{\en}{\par\noindent}
+\newcommand{\fn}{\footnotesize}
+
+\newcommand{\sect}[2]{#1~~{\mdseries\tiny(#2)}}
+
+\renewcommand{\(}{\left(}
+\renewcommand{\)}{\right)}
+
+\let \ds=\displaystyle
+
+\usepackage{xeCJK}
+\setCJKmainfont[AutoFakeBold=5,AutoFakeSlant=.4]{標楷體}
+
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\renewcommand{\headrulewidth}{0pt}
+
+\renewcommand{\thesection}{Lecture \arabic{section}}
+\renewcommand{\thesubsection}{\Roman{subsection}}
+
+\usepackage[T1]{fontenc}
+
+%%%% F U N C T I O N %%%%%
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\inn}[1]{\left<#1\right>}
+\newcommand{\f}[1]{f\!\left(#1\right)}
+\newcommand{\g}[1]{g\!\left(#1\right)}
+\newcommand{\h}[1]{h\!\left(#1\right)}
+\newcommand{\x}[1]{x\!\left(#1\right)}
+\newcommand{\D}[1]{D\!\left(#1\right)}
+\newcommand{\N}[1]{N\!\left(#1\right)}
+\renewcommand{\P}[1]{P\!\left(#1\right)}
+\newcommand{\R}[1]{R\!\left(#1\right)}
+\newcommand{\V}[1]{V\!\left(#1\right)}
+\newcommand{\function}[2]{#1\!\left(#2\right)}
+\newcommand{\functions}[2]{\left(#1\right)\!\left(#2\right)}
+
+\definecolor{light-gray}{gray}{0.95}
+\newcommand{\textfil}[1]{\colorbox{light-gray}{\large\color{Red} #1}}
+
+
+\renewcommand{\title}{Large Sparse Matrix Computations: Homework 01}
+\renewcommand{\author}{104021615 黃翊軒\\105021508	陳俊嘉\\105021610 曾國恩}
+\renewcommand{\maketitle}{\begin{center}\textbf{\Large\title}\\[6pt] {\author}\\[6pt] {\color{Gray}\footnotesize April 12, 2017}\end{center}}
+\newcommand{\blue}[1]{{\color{blue}#1}}
+
+
+\renewcommand{\labelenumi}{(\alph{enumi})}
+
+\newcommand{\Exercise}[2]{\textbf{Exercise #1.} \textit{#2}}
+\newtheorem{exercise}{Exercise}
+
+%\parskip=11pt
+
+\begin{document}
+
+  \maketitle
+  
+  \setcounter{exercise}{0}
+  
+  \begin{exercise}
+  \end{exercise}  
+  \begin{proof}
+  	Suppose $Y$ is another pseudoinverse of $A\in R^{m\times n}$, that is $Y$
+  	satisfies (a) $AYA=A$, (b) $YAY=Y$, (c)$\left( AY\right) ^{T}=AY$, (d) $%
+  	\left( YA\right) ^{T}=YA$.
+  	
+  	\begin{align*}
+  	X &=XAX=X\left( AYA\right) X=X\left( AYA\right) Y(AYA)X\\
+  	&=\left( XA\right)
+  	\left( YA\right) Y\left( AY\right) \left( AX\right) =\left( XA\right)
+  	^{T}\left( YA\right) ^{T}Y\left( AY\right) ^{T}\left( AX\right) ^{T} \\
+  	&=\left( A^{T}X^{T}A^{T}Y^{T}\right) Y\left( Y^{T}A^{T}X^{T}A^{T}\right)
+  	=\left( YAXA\right) ^{T}Y\left( AXAY\right) ^{T}\\
+  	&=\left( YA\right)
+  	^{T}Y\left( AY\right) ^{T}=\left( YA\right) Y\left( AY\right) =Y\left(
+  	AYA\right) Y=YAY\\
+  	&=Y
+  	\end{align*}
+
+  	
+  	Therefore, the pseudoinverse of $A$ is unique.
+  \end{proof}  
+
+  \begin{exercise}
+  \end{exercise}  
+  \begin{proof}
+  	Claim 1:$\left\Vert A-A_{k}\right\Vert _{2}=\sigma _{k+1}$.
+  	
+  	$$\left\Vert A-A_{k}\right\Vert _{2}=\left\Vert U\Sigma
+  	V^{T}-UDV^{T}\right\Vert _{2}=\left\Vert U\left( \Sigma -D\right)
+  	V^{T}\right\Vert _{2}=\left\Vert \Sigma -D\right\Vert _{2},$$ where $\Sigma =diag\left( \sigma _{1},\cdots ,\sigma _{r},0,\cdots ,0\right) $ and $%
+  	D=diag\left( \sigma _{1},\cdots ,\sigma _{k},0,\cdots ,0\right) $. Hence $$\Sigma -D=diag\left( 0,\cdots 0,\sigma _{k+1},\cdots ,\sigma _{r},0,\cdots
+  	,0\right) .$$
+  	
+  	So $\left\Vert A-A_{k}\right\Vert _{2}$ equals the greatest
+  	eigenvalue of $\Sigma -D=\sigma _{k+1}$.
+  	\\
+  	
+  	Claim 2: $\min\limits_{rank(B)=k}\left\Vert A-B\right\Vert _{2}=\sigma _{k+1}
+  	$.\\ Since $A_{k}\in \left\{ \left. B\text{ }\right\vert \text{ }%
+  	rank(B)=k\right\} $, $\sigma _{k+1}=\left\Vert A-A_{k}\right\Vert _{2}\geq
+  	\min\limits_{rank(B)=k}\left\Vert A-B\right\Vert _{2}$ is obvious. So we need to show $\min\limits_{rank(B)=k}\left\Vert A-B\right\Vert
+  	_{2}\geq \sigma _{k+1}.$
+  	
+  	For any $B$ with $rank(B)=k$, implies $nullity(B)=n-k$. Consider the set $%
+  	S=null(B)\cap span\left\{ v_{1},v_{2},\cdots ,v_{k+1}\right\} $. Since $%
+  	dim(S)=\left( n-k\right) +\left( k+1\right) =n+1>n$, $S$ is a nonempty set.
+  	Choose $x\in S$ with $\left\Vert x\right\Vert _{2}=1$.
+  	
+  	\begin{eqnarray*}
+  		\left\Vert A-B\right\Vert _{2}^{2} &=&\left\Vert A-B\right\Vert
+  		_{2}^{2}\left\Vert x\right\Vert _{2}^{2} \\
+  		&\geq &\left\Vert \left( A-B\right) x\right\Vert _{2}^{2} \\
+  		&=&\left\Vert Ax-Bx\right\Vert _{2}=\left\Vert Ax\right\Vert _{2}\text{
+  			(Since }x\in null(B)\text{)} \\
+  		&=&\left\Vert U\Sigma V^{T}x\right\Vert _{2}^{2}=\left\Vert \Sigma
+  		V^{T}x\right\Vert _{2}^{2}\text{ (Since }U\text{ is unitary)} \\
+  		&=&\left\Vert \sum_{i=1}^{n}\sigma _{i}v_{i}^{T}x\right\Vert
+  		_{2}^{2}=\sum_{i=1}^{k+1}\sigma _{i}^{2}\left( v_{i}^{T}x\right) ^{2}\text{
+  			(Since }x\in span\left\{ v_{1},v_{2},\cdots ,v_{k+1}\right\} \text{, }%
+  		v_{i}^{T}x=0\text{, }\forall i=k+2,\cdots ,n\text{)} \\
+  		&\geq &\sigma _{k+1}^{2}\sum\limits_{i=1}^{k+1}\left( v_{i}^{T}x\right)
+  		^{2}=\sigma _{k+1}^{2}
+  	\end{eqnarray*}
+  	
+  	Hence $\left\Vert A-B\right\Vert _{2}\geq \sigma _{k+1}$, for any $rank(B)=k$%
+  	, we get $\min\limits_{rank(B)=k}\left\Vert A-B\right\Vert _{2}\geq \sigma
+  	_{k+1}$.
+  	
+  	Therefore by claim 1 and claim 2, the proof is complete.
+  	
+  \end{proof} 
+
+  
+\end{document} 

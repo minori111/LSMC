@@ -1,0 +1,261 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage[margin=2cm]{geometry}
+%\usepackage{thmbox}
+\usepackage{graphicx}
+\usepackage[dvipsnames,usenames]{color}
+\usepackage{url}
+\usepackage{comment}
+\usepackage{amsmath, amsthm, amssymb,enumerate}
+
+%\usepackage{enumerate}
+%\usepackage{titlesec}
+%\usepackage{Rvector}
+%\usepackage{mathabx}
+\newcommand{\qrq}{\quad\Rightarrow\quad}
+\newcommand{\qarq}{\quad&\Rightarrow\quad}
+\newcommand{\alp}{\alpha}
+\newcommand{\claim}{{\underline{\it Claim:}}~~}
+\newcommand{\dbR}{\mathbb{R}}
+\newcommand{\ndimr}{\mathbb{R}^n}
+\newcommand{\vare}{\varepsilon}
+\newcommand{\since}{\because\;}
+\newcommand{\hence}{\therefore\;}
+\newcommand{\en}{\par\noindent}
+\newcommand{\fn}{\footnotesize}
+
+\newcommand{\sect}[2]{#1~~{\mdseries\tiny(#2)}}
+
+\renewcommand{\(}{\left(}
+\renewcommand{\)}{\right)}
+
+\let \ds=\displaystyle
+
+\usepackage{xeCJK}
+\setCJKmainfont[AutoFakeBold=5,AutoFakeSlant=.4]{標楷體}
+
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\renewcommand{\headrulewidth}{0pt}
+
+\renewcommand{\thesection}{Lecture \arabic{section}}
+\renewcommand{\thesubsection}{\Roman{subsection}}
+
+\usepackage[T1]{fontenc}
+
+%%%% F U N C T I O N %%%%%
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\inn}[1]{\left<#1\right>}
+\newcommand{\f}[1]{f\!\left(#1\right)}
+\newcommand{\g}[1]{g\!\left(#1\right)}
+\newcommand{\h}[1]{h\!\left(#1\right)}
+\newcommand{\x}[1]{x\!\left(#1\right)}
+\newcommand{\D}[1]{D\!\left(#1\right)}
+\newcommand{\N}[1]{N\!\left(#1\right)}
+\renewcommand{\P}[1]{P\!\left(#1\right)}
+\newcommand{\R}[1]{R\!\left(#1\right)}
+\newcommand{\V}[1]{V\!\left(#1\right)}
+\newcommand{\function}[2]{#1\!\left(#2\right)}
+\newcommand{\functions}[2]{\left(#1\right)\!\left(#2\right)}
+
+\definecolor{light-gray}{gray}{0.95}
+\newcommand{\textfil}[1]{\colorbox{light-gray}{\large\color{Red} #1}}
+
+
+\renewcommand{\title}{Large Sparse Matrix Computations: Homework 01}
+\renewcommand{\author}{104021615 黃翊軒\\105021508	陳俊嘉\\105021610 曾國恩}
+\renewcommand{\maketitle}{\begin{center}\textbf{\Large\title}\\[6pt] {\author}\\[6pt] {\color{Gray}\footnotesize March 15, 2017}\end{center}}
+\newcommand{\blue}[1]{{\color{blue}#1}}
+
+
+\renewcommand{\labelenumi}{(\alph{enumi})}
+
+\newcommand{\Exercise}[2]{\textbf{Exercise #1.} \textit{#2}}
+\newtheorem{exercise}{Exercise}
+
+%\parskip=11pt
+
+\begin{document}
+
+  \maketitle
+  
+  \setcounter{exercise}{0}
+  
+  \begin{exercise}
+  \end{exercise}  
+  \begin{proof}
+  	Since $A\in%
+  	%TCIMACRO{\U{211d} }%
+  	%BeginExpansion
+  	\mathbb{R}
+  	%EndExpansion
+  	^{n\times n}$ is diagonal dominant, we have $\left\vert a_{jj}\right\vert
+  	>\sum\limits_{i\neq j}^{n}\left\vert a_{ij}\right\vert ,\forall1\leq j\leq n$.
+  	
+  	$A=\left(
+  	\begin{array}
+  	[c]{ccccc}%
+  	a_{11} & a_{12} & \cdots & \cdots & a_{1n}\\
+  	a_{21} & a_{22} & \cdots & \cdots & a_{2n}\\
+  	\vdots & \vdots & \ddots &  & \vdots\\
+  	\vdots & \vdots &  & \ddots & \vdots\\
+  	a_{n1} & a_{n2} & \cdots & \cdots & a_{nn}%
+  	\end{array}
+  	\right)  \underrightarrow{\text{1st step Gaussian Elimination}}\left(
+  	\begin{array}
+  	[c]{ccccc}%
+  	a_{11} & a_{12} & a_{13} & \ldots & a_{1n}\\
+  	0 & a_{22}^{(2)} & a_{23}^{(2)} & \ldots & a_{2n}^{(2)}\\
+  	0 & a_{32}^{(2)} & a_{33}^{(2)} & \ldots & a_{3n}^{(2)}\\
+  	\vdots & \vdots & \vdots & \ddots & \vdots\\
+  	0 & a_{n2}^{(2)} & a_{n3}^{(2)} & \cdots & a_{nn}^{(2)}%
+  	\end{array}
+  	\right)  =A^{(2)}$, where $a_{ij}^{(2)}=a_{ij}-\frac{a_{i1}}{a_{11}}%
+  	a_{1j},\forall2\leq i,j\leq n$. We are now prepared to show $A^{(2)}(2:n,2:n)$
+  	is also diagonal dominant : 
+  	
+  	\begin{align*}
+  	\sum\limits_{i=2,i\neq j}^{n}\left\vert a_{ij}^{(2)}\right\vert
+  	=\sum\limits_{i=2,i\neq j}^{n}\left\vert a_{ij}-\frac{a_{i1}}{a_{11}}%
+  	a_{1j}\right\vert 
+  	&\leq\sum\limits_{i=2,i\neq j}%
+  	^{n}\left\vert a_{ij}\right\vert +\sum\limits_{i=2,i\neq j}^{n}\left\vert
+  	\frac{a_{1j}}{a_{11}}a_{i1}\right\vert \\
+  	&=\sum\limits_{i=2,i\neq j}^{n}\left\vert
+  	a_{ij}\right\vert +\left\vert \frac{a_{1j}}{a_{11}}\right\vert \sum
+  	\limits_{i=2,i\neq j}^{n}\left\vert a_{i1}\right\vert \\
+  	&<(\left\vert a_{jj}\right\vert -\left\vert
+  	a_{1j}\right\vert )+\left\vert \frac{a_{1j}}{a_{11}}\right\vert (\left\vert
+  	a_{11}\right\vert -\left\vert a_{j1}\right\vert )\\
+  	&=\left\vert a_{jj}\right\vert -\left\vert
+  	a_{1j}\right\vert +\left\vert a_{1j}\right\vert -\left\vert \frac{a_{1j}%
+  	}{a_{11}}\right\vert \left\vert a_{j1}\right\vert\\
+  	&=\left\vert a_{jj}\right\vert -\left\vert
+  	\frac{a_{1j}}{a_{11}}a_{j1}\right\vert \\
+  	&<\left\vert a_{jj}-\frac{a_{1j}}{a_{11}}%
+  	a_{j1}\right\vert =\left\vert a_{jj}^{(2)}\right\vert ,\forall2\leq j\leq n.
+  	\end{align*}
+  	where $\sum\limits_{i=2,i\neq j}^{n}\left\vert a_{ij}\right\vert +\left\vert
+  	a_{1j}\right\vert =\sum\limits_{i=1,i\neq j}^{n}\left\vert a_{ij}\right\vert
+  	<\left\vert a_{jj}\right\vert $ imply $$\sum\limits_{i=2,i\neq j}^{n}\left\vert
+  	a_{ij}\right\vert <\left\vert a_{jj}\right\vert -\left\vert a_{1j}\right\vert
+  	$$ and $$\sum\limits_{i=2,i\neq j}^{n}\left\vert a_{i1}\right\vert +\left\vert
+  	a_{j1}\right\vert =\sum\limits_{i=2}^{n}\left\vert a_{i1}\right\vert
+  	<\left\vert a_{11}\right\vert $$ imply $$\sum\limits_{i=2,i\neq j}^{n}\left\vert
+  	a_{i1}\right\vert <\left\vert a_{11}\right\vert -\left\vert a_{j1}\right\vert.
+  	$$
+  	Therefore the proof is completed.
+  \end{proof}  
+
+  \begin{exercise}
+  \end{exercise}  
+  \begin{proof}
+  	First, we consider $A^{(2)}.$ Fix j,
+  	\begin{align*}  	
+  	\sum_{i=2}^{n}\left\vert a_{i,j}^{(2)}\right\vert &=\sum_{i=2}^{n}\left\vert
+  	a_{i,j}-\frac{a_{i,1}}{a_{1,1}}a_{1,j}\right\vert \\  	
+  	&\leq\sum_{i=2}^{n}\left\vert a_{i,j}\right\vert
+  	+\left\vert \frac{a_{1,j}}{a_{1,1}}\right\vert \sum_{i=2}^{n}\left\vert
+  	a_{i,1}\right\vert \\  	
+  	&<\sum_{i=2}^{n}\left\vert a_{i,j}\right\vert
+  	+\left\vert \frac{a_{1,j}}{a_{1,1}}\right\vert \left\vert a_{1,1}\right\vert
+  	\text{(Since A is diagonal dominant.)}\\  	
+  	&=\sum_{i=1}^{n}\left\vert a_{i,j}\right\vert   	
+  	\end{align*}
+  	
+  	By induction, we have
+  	
+  	\begin{align*} 
+  	\sum_{i=k}^{n}\left\vert a_{i,j}^{(k)}\right\vert <\sum_{i=k-1}^{n}\left\vert
+  	a_{i,j}^{(k-1)}\right\vert <.......<\sum_{i=1}^{n}\left\vert a_{i,j}%
+  	\right\vert .
+  	\end{align*}
+  	
+  	Then 
+  	\begin{align*} 
+  	\underset{k\leq i,j\leq n}{\max}\left\vert a_{i,j}^{(k)}\right\vert
+  	\leq\underset{k\leq j\leq n}{\max}\sum_{i=k}^{n}\left\vert a_{i,j}%
+  	^{(k)}\right\vert
+  	&\leq\underset{k\leq j\leq n}{\max}\sum_{i=1}^{n}\left\vert
+  	a_{i,j}\right\vert =\underset{k\leq j\leq n}{\max}(\left\vert a_{j,j}%
+  	\right\vert +\sum_{i=1,i\neq j}^{n}\left\vert a_{i,j}^{(k)}\right\vert
+  	)\\
+  	&\leq\underset{k\leq j\leq n}{\max}(2\left\vert a_{j,j}\right\vert
+  	)\leq2\underset{1\leq i,j\leq n}{\max}(\left\vert a_{i,j}\right\vert ).
+  	\end{align*}
+  	
+  \end{proof} 
+
+	\begin{exercise}
+	\end{exercise}  
+	\begin{proof}
+	(a)
+	Since 
+	\[
+	A = 
+	\begin{bmatrix}
+		A_{11} & A_{12}\\
+		A_{21} & A_{22}
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		L_{11} & 0\\
+		L_{21} & L_{22}
+	\end{bmatrix}
+	\begin{bmatrix}
+		L_{11}^T & L_{21}^T\\
+		0 & L_{22}^T
+	\end{bmatrix}.
+	\]
+	We have 
+	\begin{align*}
+	A_{11} &= L_{11}L_{11}^T\\
+	A_{12} &= L_{11}L_{21}^T\\
+	A_{21} &= L_{21}L_{11}^T\\
+	A_{22} &= L_{21}L_{21}^T + L_{22}L_{22}^T.
+	\end{align*}
+	Then 
+	\begin{align*}
+	S &= A_{22}-A_{21}A_{11}^{-1}A_{21}^T\\
+	&=(L_{21}L_{21}^T + L_{22}L_{22}^T) - (L_{21}L_{11}^T)(L_{11}^{-T}L_{11}^{-1})(L_{11}L_{21}^T)\\
+	&= L_{22}L_{22}^T
+	\end{align*}	
+	Then we have $$\kappa_2(S) =\|L_{22}L_{22}^T\|_2\|(L_{22}L_{22}^T)^{-1}\|_2 \le \|A\|_2\|A^{-1}\|_2 \le \kappa_2(A).$$
+	(b)Let $A = LL^T$ be the Cholesky decomposition of $A$.
+	By writing 
+	\[
+	A = 
+	\begin{bmatrix}
+	A_{11} & A_{12}\\
+	A_{21} & A_{22}
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+	L_{11} & 0\\
+	L_{21} & L_{22}
+	\end{bmatrix}
+	\begin{bmatrix}
+	L_{11}^T & L_{21}^T\\
+	0 & L_{22}^T
+	\end{bmatrix}.
+	\]
+	we have $$A_{21} = L_{21}L_{11}^T.$$
+	By the same argument, we obtain
+	$$A_{11}^{-1}=L_{11}^{-T}L_{11}^{-1}.$$
+	Combining above, we can write
+	$$A_{21}A_{11}^{-1}=L_{21}L_{11}^TL_{11}^{-T}L_{11}^{-1} = L_{21}L_{11}^{-1}.$$
+	Taking 2-norm on both side, we have 
+	\begin{align*}
+	\|A_{21}A_{11}^{-1}\|_2 = \|L_{12}L_{11}^{-1}\|_2 &\le \|L_{12}\|_2\|L_{11}^{-1}\|_2 \\
+	&\le \|L\|_2\|L^{-1}\|_2\\
+	& = \kappa_2(L) =   \kappa_2(A)^{(1/2)}
+	\end{align*}
+	
+	\end{proof} 
+
+
+  
+\end{document} 
