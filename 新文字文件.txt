@@ -1,0 +1,14 @@
+wtfC#3.+.3*10
+
+[ReLU, without BN, with initialization] 
+[ELU, without BN, with initialization]
+ [ELU, BN, with initialization]
+ [ReLU, BN, with initialization]
+ [ELU,without  BN, without initialization]
+ [ELU, BN, without initialization]
+ [ReLU, BN, without initialization]
+
+[ReLU,without  BN, without initialization]
+
+minori11
+Ss610878

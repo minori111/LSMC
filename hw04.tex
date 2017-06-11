@@ -1,0 +1,209 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage[margin=2cm]{geometry}
+%\usepackage{thmbox}
+\usepackage{graphicx}
+\usepackage[dvipsnames,usenames]{color}
+\usepackage{url}
+\usepackage{comment}
+\usepackage{amsmath, amsthm, amssymb,enumerate}
+
+%\usepackage{enumerate}
+%\usepackage{titlesec}
+%\usepackage{Rvector}
+%\usepackage{mathabx}
+\newcommand{\qrq}{\quad\Rightarrow\quad}
+\newcommand{\qarq}{\quad&\Rightarrow\quad}
+\newcommand{\alp}{\alpha}
+\newcommand{\claim}{{\underline{\it Claim:}}~~}
+\newcommand{\dbR}{\mathbb{R}}
+\newcommand{\ndimr}{\mathbb{R}^n}
+\newcommand{\vare}{\varepsilon}
+\newcommand{\since}{\because\;}
+\newcommand{\hence}{\therefore\;}
+\newcommand{\en}{\par\noindent}
+\newcommand{\fn}{\footnotesize}
+
+\newcommand{\sect}[2]{#1~~{\mdseries\tiny(#2)}}
+
+\renewcommand{\(}{\left(}
+\renewcommand{\)}{\right)}
+
+\let \ds=\displaystyle
+
+\usepackage{xeCJK}
+\setCJKmainfont[AutoFakeBold=5,AutoFakeSlant=.4]{標楷體}
+
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\renewcommand{\headrulewidth}{0pt}
+
+\renewcommand{\thesection}{Lecture \arabic{section}}
+\renewcommand{\thesubsection}{\Roman{subsection}}
+
+\usepackage[T1]{fontenc}
+
+%%%% F U N C T I O N %%%%%
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\inn}[1]{\left<#1\right>}
+\newcommand{\f}[1]{f\!\left(#1\right)}
+\newcommand{\g}[1]{g\!\left(#1\right)}
+\newcommand{\h}[1]{h\!\left(#1\right)}
+\newcommand{\x}[1]{x\!\left(#1\right)}
+\newcommand{\D}[1]{D\!\left(#1\right)}
+\newcommand{\N}[1]{N\!\left(#1\right)}
+\renewcommand{\P}[1]{P\!\left(#1\right)}
+\newcommand{\R}[1]{R\!\left(#1\right)}
+\newcommand{\V}[1]{V\!\left(#1\right)}
+\newcommand{\function}[2]{#1\!\left(#2\right)}
+\newcommand{\functions}[2]{\left(#1\right)\!\left(#2\right)}
+
+\definecolor{light-gray}{gray}{0.95}
+\newcommand{\textfil}[1]{\colorbox{light-gray}{\large\color{Red} #1}}
+
+
+\renewcommand{\title}{Large Sparse Matrix Computations: Homework 05}
+\renewcommand{\author}{104021615 黃翊軒\\105021508	陳俊嘉\\105021610 曾國恩}
+\renewcommand{\maketitle}{\begin{center}\textbf{\Large\title}\\[6pt] {\author}\\[6pt] {\color{Gray}\footnotesize May 31, 2017}\end{center}}
+\newcommand{\blue}[1]{{\color{blue}#1}}
+
+
+\renewcommand{\labelenumi}{(\alph{enumi})}
+
+\newcommand{\Exercise}[2]{\textbf{Exercise #1.} \textit{#2}}
+\newtheorem{exercise}{Exercise}
+
+%\parskip=11pt
+
+\begin{document}
+
+  \maketitle
+  
+  \setcounter{exercise}{0}
+
+
+  \begin{exercise}
+  \end{exercise}  
+  \begin{proof}
+  	1. Use $\left\{
+  	\begin{array}
+  	[c]{c}%
+  	F(x)=\frac{1}{2}x^{T}Ax-bx\\
+  	F(x_{k})+\frac{1}{2}b^{T}A^{-1}b\leq(\frac{\lambda_{1}-\lambda_{n}}%
+  	{\lambda_{1}-\lambda_{n}})^{2}[F(x_{k-1})+\frac{1}{2}b^{T}A^{-1}b]
+  	\end{array}
+  	\right.  ,$%
+  	\begin{align*}
+  	F(x_{k})+\frac{1}{2}b^{T}A^{-1}b  & =\frac{1}{2}x_{k}^{T}Ax_{k}-bx_{k}%
+  	+\frac{1}{2}b^{T}A^{-1}b\\
+  	& =\frac{1}{2}(x_{k-1}^{T}+tr_{k-1}^{T})A(x_{k-1}+tr_{k-1})-b(x_{k-1}%
+  	+tr_{k-1})+\frac{1}{2}b^{T}A^{-1}b\\
+  	& =\frac{1}{2}(x_{k-1}^{T}Ax_{k-1}+tx_{k-1}^{T}Ar_{k-1}+tr_{k-1}^{T}%
+  	Ax_{k-1}+t^{2}r_{k-1}^{T}Ar_{k-1})-(bx_{k-1}+btr_{k-1})\\
+  	&\ \ \ 
+  	+\frac{1}{2}b^{T}%
+  	A^{-1}b\\
+  	& =F(x_{k-1})+\frac{1}{2}b^{T}A^{-1}b+\frac{1}{2}(tx_{k-1}^{T}Ar_{k-1}%
+  	+tr_{k-1}^{T}Ax_{k-1}+t^{2}r_{k-1}^{T}Ar_{k-1})-btr_{k-1}\\
+  	& =F(x_{k-1})+\frac{1}{2}b^{T}A^{-1}b+\frac{1}{2}(tx_{k-1}^{T}A(b-Ax_{k-1}%
+  	)+t(x_{k-1}^{T}A^{T}-b^{T})Ax_{k-1}\\
+  	&\ \ \ 
+  	+t^{2}(x_{k-1}^{T}A^{T}-b^{T}%
+  	)A(b-Ax_{k-1}))-bt(b-Ax_{k-1})\\
+  	& =F(x_{k-1})+\frac{1}{2}b^{T}A^{-1}b+\frac{1}{2}(t^{2}(x_{k-1}^{T}A^{T}%
+  	-b^{T})A(b-Ax_{k-1}))-bt(b-Ax_{k-1})\\
+  	& \leq(\frac{\lambda_{1}-\lambda_{n}}{\lambda_{1}-\lambda_{n}})^{2}%
+  	[F(x_{k-1})+\frac{1}{2}b^{T}A^{-1}b]
+  	\end{align*}%
+  	\[
+  	\implies\frac{1}{2}((t^{2}(x_{k-1}^{T}A^{T}-b^{T})A-2bt)(b-Ax_{k-1}%
+  	))\leq\lbrack(\frac{\lambda_{1}-\lambda_{n}}{\lambda_{1}-\lambda_{n}}%
+  	)^{2}-1][F(x_{k-1})+\frac{1}{2}b^{T}A^{-1}b]
+  	\]
+  \end{proof}
+
+
+\begin{exercise}
+\end{exercise}  
+\begin{proof}
+	
+\end{proof}
+
+
+\begin{exercise}
+\end{exercise}  
+\begin{proof}
+	
+\end{proof}
+
+
+\begin{exercise}
+\end{exercise}  
+\begin{proof}
+	
+\end{proof}
+
+
+
+\begin{exercise}
+\end{exercise}  
+\begin{proof}
+	The Chebyshev differential equation is written as%
+	\[
+	\left( 1-x^{2}\right) \frac{d^{2}y}{dx^{2}}-x\frac{dy}{dx}+n^{2}y=0,\text{ }%
+	n=0,1,2,\cdots 
+	\]
+	
+	If we let $x=\cosh t$ we obtain%
+	\[
+	\frac{d^{2}y}{dt^{2}}-n^{2}y=0
+	\]
+	
+	whose general solution is 
+	\[
+	y=A\cosh nt+B\cosh nt
+	\]
+	
+	or as 
+	\[
+	y=A\cosh \left( n\cosh ^{-1}x\right) +B\cosh \left( n\cosh ^{-1}x\right) ,%
+	\text{ }\left\vert x\right\vert >1
+	\]
+	
+	or equivalently%
+	\[
+	y=AT_{n}(x)+BU_{n}(x),\text{ }\left\vert x\right\vert >1
+	\]
+	
+	the function $T_{n}(x)$ is a polynomial. For $\left\vert x\right\vert <1$ we
+	have%
+	\begin{eqnarray*}
+		T_{n}(x)+iU(x) &=&\left( \cos t+i\sin t\right) ^{n}=\left( x+i\sqrt{1-x^{2}}%
+		\right) ^{n} \\
+		T_{n}(x)-iU(x) &=&\left( \cos t-i\sin t\right) ^{n}=\left( x+i\sqrt{1-x^{2}}%
+		\right) ^{n}
+	\end{eqnarray*}
+	
+	from which we obtain%
+	\[
+	2T_{n}(x)=\left( x+i\sqrt{1-x^{2}}\right) ^{n}+\left( x+i\sqrt{1-x^{2}}%
+	\right) ^{n}
+	\]
+	
+	so%
+	\[
+	T_{n}(x)=\frac{1}{2}\left[ \left( x+i\sqrt{1-x^{2}}\right) ^{n}+\left( x+i%
+	\sqrt{1-x^{2}}\right) ^{n}\right] 
+	\]
+\end{proof}
+
+
+
+
+
+
+
+\end{document} 
